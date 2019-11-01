@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{object.youtuber.name}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        {% for category in object.category %}
+            <Button class="rounded-pill btn btn-success">{{category.category_name}}</Button>
+        {% endfor %}
+             <div class="col-4">
+               <div class="card" style="width: 18rem;">
+                 <img src="{{ object.youtuber.profile_img }}" class="card-img-top" width="33.3333333333%" height="300" style="object-fit: cover">
+                 <div class="card-body">
+                   <p class="card-text">{{ object.youtuber.name }}</p>
+                 </div>
+               </div>
+             </div>
+        <div style="margin-top:50px;">
+            <p>소개</p>
+             {{object.youtuber.description}}
+        </div>
+        <div style="margin-top:50px;">
+            <p>구독자 수</p>
+            {{object.subscriber_count}} <button class="btn btn-primary"><a href="/subscriber/{{object.youtuber.id}}" class="text-white">구독하기</a></button>
+        </div>
+        <div style="margin-top:50px;">
+            <p>방문자 조회 수</p>
+             {{object.youtuber.views}}
+        </div>
+
+
+        <div style="margin-top:50px;">
+            <p>댓글</p>
+            <ul class="list-group list-group-flush">
+                {% for review in object.review %}
+                    <li class="list-group-item">{{review.review_text}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        <div style="margin-top:50px;margin-bottom:100px;">
+             <form action="/review/{{ object.youtuber.id }}" method="post">
+                {% csrf_token%}
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">댓글을 입력하세요.</label>
+                    <textarea name="review" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="리뷰를 등록 하세요"></textarea>
+                </div>
+                <input type="submit" value="등록">
+             </form>
+        </div>
+
+
+        <div class="row">
+           {% for youtuber in object.recommendation_youtuber %}
+             <a href="/detail/{{youtuber.id}}/" class="alert-link text-dark">
+                 <div class="col-4">
+                   <div class="card" style="width: 18rem;">
+                     <img src="{{ youtuber.profile_img }}" class="card-img-top" width="33.3333333333%" height="300" style="object-fit: cover">
+                     <div class="card-body">
+                       <p class="card-text">{{ youtuber.name }}</p>
+                     </div>
+                   </div>
+                 </div>
+             </a>
+           {% endfor %}
+         </div>
+    </div>
+</body>
+</html>

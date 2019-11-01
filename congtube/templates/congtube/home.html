@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>콩튜브</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+    <form action="/" method="get">
+       <div class="input-group mb-3">
+          <input name='q' type="text" class="form-control" placeholder="'대도서관' 등으로 검색해보세요!" aria-label="Recipient's username" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+          </div>
+       </div>
+    </form>
+    <div>
+        <button type="button" class="btn btn-success rounded-pill"><a href="/" class="text-white">전체</a></button>
+        {% for category in home_object.category_list %}
+            <button type="button" class="btn btn-success rounded-pill"><a href="/?c={{category.id}}" class="text-white">{{category.category_name}}</a></button>
+        {% endfor %}
+    </div>
+     <div class="row" style="margin-top:50px;">
+       {% for youtuber in home_object.youtuber_list %}
+         <a href="/detail/{{youtuber.id}}/" class="alert-link text-dark">
+             <div class="col-4">
+               <div class="card" style="width: 18rem;">
+                 <img src="{{ youtuber.profile_img }}" class="card-img-top" width="33.3333333333%" height="300" style="object-fit: cover">
+                 <div class="card-body">
+                   <p class="card-text">{{ youtuber.name }}</p>
+                 </div>
+               </div>
+             </div>
+         </a>
+       {% endfor %}
+     </div>
+    </div>
+</body>
+</html>

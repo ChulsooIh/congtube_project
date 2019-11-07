@@ -1,0 +1,14 @@
+장고 설치
+pip install django
+프로젝트 설치
+django-admin startproject config .
+데이터베이스 생성 및 적용
+python manage.py migrate
+개발 서버 실행
+python manage.py runserver
+관리자 계정 생성
+python manage.py createsuperuser
+앱 설치
+python manage.py startapp hello
+DB수정내용 파일 반영
+python manage.py makemigrations webtoon(앱이름)
